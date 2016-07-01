@@ -1,0 +1,46 @@
+{
+    "_id" : ObjectId("5775d5d1d74bf3e15240f263"),
+    "bid" : "bbb01b0e504af1f8d590335407596e2f",
+    "rating" : {
+        "numRaters" : NumberInt(1356),
+        "min" : NumberInt(0),
+        "max" : NumberInt(10),
+        "average" : "8.3"
+    },
+    "publisher" : "广西师范大学出版社",
+    "binding" : "平装",
+    "price" : "25.00元",
+    "summary" : "欧洲灵修学经典；经久不衰的大众心灵读物\n自1953年出版以来，再版达14次\n————————\n19世纪末期，一个英国小男孩用日记写下了他成长期的困惑。他生来赋有通灵的能力，能看见灵光和灵魂，能看见人身上死亡和疾病的颜色，能感应一个人的过去和未来。\n他成为父母眼中的“怪胎”，不断受挫，直到遇见家庭教师帕摩先生，才知道自己的与众不同。师生两人在灵学上一起实验和探索，思考通灵的真相、人死后的世界，以及灵修的真理。\n这部日记经过亲友的再三说服，后来作者才勉强同意出版，但他开出两个条件：一是，日记必须在他死后数年才能出版。二是，书中的名字必须更改，以免为还活着的亲友带来困扰。",
+    "isbn13" : "9787563398836",
+    "isbn10" : "756339883X", 
+    "pages" : "224",
+    "catalog" : "引言日记补记札记后记注释",
+    "images" : {
+        "small" : "http://img3.douban.com/spic/s4386041.jpg",
+        "medium" : "http://img3.douban.com/mpic/s4386041.jpg",
+        "large" : "http://img3.douban.com/lpic/s4386041.jpg"
+    },
+    "image" : "http://img3.douban.com/mpic/s4386041.jpg",
+    "pubdate" : "2010.7",
+    "subtitle" : "",
+    "title" : "看见真相的男孩",
+    "updatetime" : "1467340241716",
+    "createtime" : "1467340241716",
+    "updateuserid" : "f94a451a6fb52013cc71a5bffc2be3c6",
+    "createuserid" : "f94a451a6fb52013cc71a5bffc2be3c6",
+    "version" : ISODate("2016-07-01T02:30:41.716+0000"),
+    "status" : "visable",
+    "translator" : [
+        "冯倩珠"
+    ],
+    "authors" : [
+
+    ],
+    "author" : [
+        "(英) 斯科特"
+    ],
+    "__v" : NumberInt(1),
+    "tags" : [
+
+    ]
+}
