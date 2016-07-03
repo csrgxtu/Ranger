@@ -98,3 +98,5 @@ def ParseJsonCNMARC(dictjson):
     # authors[]
 
     # tags[]
+
+    return BookInfo
