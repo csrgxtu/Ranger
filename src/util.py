@@ -13,16 +13,19 @@ def ParseJsonCNMARC(dictjson):
     BookInfo = {}
 
     # publisher
-    if dictjson['210']:
+    if '210' in dictjson:
+    # if dictjson['210']:
         BookInfo['publisher'] = dictjson['210']
     else:
         BookInfo['publisher'] = None
 
+
     # binding
-    if dictjson['010']:
-        if dictjson['010'].index('b'):
+    if '010' in dictjson:
+    # if dictjson['010']:
+        if 'b' in dictjson['010']:
             start = dictjson['010'].index('b')
-            if dictjson['010'].index('d'):
+            if 'd' in dictjson['010']:
                 end = dictjson['010'].index('d')
                 BookInfo['binding'] = dictjson['010'][start:end]
             else:
@@ -31,26 +34,29 @@ def ParseJsonCNMARC(dictjson):
         BookInfo['binding'] = None
 
     # price
-    if dictjson['010']:
-        if dictjson['010'].index('d'):
+    if '010' in dictjson:
+    # if dictjson['010']:
+        if 'd' in dictjson['010']:
             start = dictjson['010'].index('d')
             BookInfo['price'] = dictjson['010'][start:]
     else:
         BookInfo['price'] = None
 
     # summary
-    if dictjson['330']:
+    if '330' in dictjson:
+    # if dictjson['330']:
         start = dictjson['330'].index('a')
         BookInfo['summary'] = dictjson['330'][start:]
     else:
         BookInfo['summary'] = None
 
     # isbn13
-    if dictjson['010']:
-        if dictjson['010'].index('a'):
+    if '010' in dictjson:
+    # if dictjson['010']:
+        if 'a' in dictjson['010']:
             start = dictjson['010'].index('a')
             end = start + 17
-            if dictjson['010'].index('b'):
+            if 'b' in dictjson['010']:
                 end = dictjson['010'].index('b')
             else:
                 end = dictjson['010'].index('d')
@@ -60,14 +66,15 @@ def ParseJsonCNMARC(dictjson):
         BookInfo['isbn'] = None
 
     # pages
-    if dictjson['215']:
-        if dictjson['215'].index('a'):
+    if '215' in dictjson:
+    # if dictjson['215']:
+        if 'a' in dictjson['215']:
             start = dictjson['215'].index('a')
-            if dictjson['215'].index('c'):
+            if 'c' in dictjson['215']:
                 end = dictjson['215'].index('c')
-            elif dictjson['215'].index('d'):
+            elif 'd' in dictjson['215']:
                 end = dictjson['215'].index('d')
-            elif dictjson['215'].index('e')
+            elif 'e' in dictjson['215']:
                 end = dictjson['215'].index('e')
             else:
                 end = -1
@@ -76,8 +83,9 @@ def ParseJsonCNMARC(dictjson):
         BookInfo['pages'] = None
 
     # pubdate
-    if dictjson['100']:
-        if dictjson['100'].index('a'):
+    if '100' in dictjson:
+    # if dictjson['100']:
+        if 'a' in dictjson['100']:
             start = dictjson['100'].index('a')
             end = dictjson['100'].index('d')
             BookInfo['pubdate'] = dictjson['100'][start:end]
@@ -85,8 +93,9 @@ def ParseJsonCNMARC(dictjson):
         BookInfo['pubdate'] = None
 
     # title
-    if dictjson['200']:
-        if dictjson['200'].index('a'):
+    if '200' in dictjson:
+    # if dictjson['200']:
+        if 'a' in dictjson['200']:
             start = dictjson['200'].index('a')
             end = dictjson['200'].index('b')
             BookInfo['title'] = dictjson['200'][start:end]
