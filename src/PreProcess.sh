@@ -6,8 +6,8 @@ for f in "$1"/*
 do
   echo $f
   # first, remove \u001f
-  sed -i 's/\\u001f//g' $1
+  sed -i 's/\\u001f//g' $f
 
   # second, remove \u001e
-  sed -i 's/\\u001e//g' $1
+  sed -i 's/\\u001e//g' $f
 done
