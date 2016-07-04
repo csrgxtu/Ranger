@@ -16,7 +16,10 @@ def ParseJsonCNMARC(dictjson):
     if '210' in dictjson:
         if 'c' in dictjson['210']:
             start = dictjson['210'].index('c') + 1
-            end = dictjson['210'].index('d')
+            if 'd' in dictjson['210']:
+                end = dictjson['210'].index('d')
+            else:
+                end = -1
             BookInfo['publisher'] = dictjson['210'][start:end]
     else:
         BookInfo['publisher'] = None
