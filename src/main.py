@@ -9,6 +9,7 @@ import json
 from util import ParseJsonCNMARC
 import glob
 import sys
+from pymongo import MongoClient
 
 # first, get command argument, the directory of the json files
 if len(sys.argv) != 2:
@@ -17,5 +18,14 @@ if len(sys.argv) != 2:
 JSON_DIR = sys.argv[1]
 
 # second, loop the json file in JSON_DIR
+client = MongoClient('mongodb://localhost:27017/')
+db = client['cnmarc']
+collection = db['cnmarc']
+
 for jsonfile in glob.glob(JSON_DIR + "/*.json"):
-    print jsonfile
+    # print jsonfile
+    f = open(jsonfile, 'r')
+    recs = json.loads(f.read())
+    for rec in recs:
+        print rec
+        ParseJsonCNMARC(rec)

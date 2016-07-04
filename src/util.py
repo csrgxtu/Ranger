@@ -56,8 +56,10 @@ def ParseJsonCNMARC(dictjson):
             end = start + 17
             if 'b' in dictjson['010']:
                 end = dictjson['010'].index('b')
-            else:
+            elif 'd' in dictjson['010']:
                 end = dictjson['010'].index('d')
+            else:
+                end = -1
 
         BookInfo['isbn'] = dictjson['010'][start:end]
     else:
