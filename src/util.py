@@ -12,7 +12,7 @@ def ReadFile(filename):
 def ParseJsonCNMARC(dictjson):
     BookInfo = {}
 
-    # publisher
+    # publisher_name
     if '210' in dictjson:
         if 'c' in dictjson['210']:
             start = dictjson['210'].index('c') + 1
@@ -20,10 +20,29 @@ def ParseJsonCNMARC(dictjson):
                 end = dictjson['210'].index('d')
             else:
                 end = -1
-            BookInfo['publisher'] = dictjson['210'][start:end]
+            BookInfo['publisher_name'] = dictjson['210'][start:end]
     else:
-        BookInfo['publisher'] = None
+        BookInfo['publisher_name'] = None
 
+    # 发布地址， publish_place
+    if '210' in dictjson:
+        if 'a' in dictjson['210']:
+            start = dictjson['210'].index('a') + 1
+            if 'c' in dictjson['210']:
+                end = dictjson['210'].index('c')
+            else:
+                end = -1
+            BookInfo['publish_place'] = dictjson['210'][start:end]
+    else:
+        BookInfo['publish_place'] = None
+
+    # 发布时间， publisher_date
+    if '210' in dictjson:
+        if 'd' in dictjson['210']:
+            start = dictjson['210'].index('d') + 1
+            BookInfo['publisher_date'] = dictjson['210'][start:]
+    else:
+        BookInfo['publisher_date'] = None
 
     # binding
     if '010' in dictjson:
@@ -36,6 +55,15 @@ def ParseJsonCNMARC(dictjson):
                 BookInfo['binding'] = dictjson['010'][start:]
     else:
         BookInfo['binding'] = None
+
+    # 书籍类型， length_style
+    if '200' in dictjson:
+        if 'b' in dictjson['200']:
+            start = dictjson['200'].index('b') + 1
+            end = start + 2
+            BookInfo['length_style'] = dictjson['200'][start:end]
+    else:
+        BookInfo['length_style'] = None
 
     # price
     if '010' in dictjson:
@@ -55,7 +83,7 @@ def ParseJsonCNMARC(dictjson):
     else:
         BookInfo['summary'] = None
 
-    # isbn13
+    # isbn
     if '010' in dictjson:
         if 'a' in dictjson['010']:
             start = dictjson['010'].index('a') + 1
@@ -70,7 +98,19 @@ def ParseJsonCNMARC(dictjson):
     else:
         BookInfo['isbn'] = None
 
-    # pages
+    # 书籍尺寸， size
+    if '215' in dictjson:
+        if 'd' in dictjson['215']:
+            start = dictjson['215'].index('d') + 1
+            if 'cm' in dictjson['215']:
+                end = dictjson['215'].index('cm')
+            else:
+                end = -1
+            BookInfo['size'] = dictjson['215'][start:end]
+    else:
+        BookInfo['size'] = None
+
+    # pagesize
     if '215' in dictjson:
         if 'a' in dictjson['215']:
             dictjson['215'] = dictjson['215'].strip('cm')
@@ -83,19 +123,21 @@ def ParseJsonCNMARC(dictjson):
                 end = dictjson['215'].index('e')
             else:
                 end = -1
-            BookInfo['pages'] = dictjson['215'][start:end]
+            BookInfo['pagesize'] = dictjson['215'][start:end]
     else:
-        BookInfo['pages'] = None
+        BookInfo['pagesize'] = None
 
-    # pubdate
+
+
+    # print_date
     if '100' in dictjson:
         if 'a' in dictjson['100']:
             start = dictjson['100'].index('a') + 1
             # end = dictjson['100'].index('d')
             end = start + 8
-            BookInfo['pubdate'] = dictjson['100'][start:end]
+            BookInfo['print_date'] = dictjson['100'][start:end]
     else:
-        BookInfo['pubdate'] = None
+        BookInfo['print_date'] = None
 
     # title
     if '200' in dictjson:
