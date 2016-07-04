@@ -47,7 +47,10 @@ def ParseJsonCNMARC(dictjson):
 
     # summary
     if '330' in dictjson:
-        start = dictjson['330'].index('a') + 1
+        if 'a' in dictjson['330']:
+            start = dictjson['330'].index('a') + 1
+        else:
+            start = 0
         BookInfo['summary'] = dictjson['330'][start:]
     else:
         BookInfo['summary'] = None
@@ -63,14 +66,14 @@ def ParseJsonCNMARC(dictjson):
                 end = dictjson['010'].index('d')
             else:
                 end = -1
-
-        BookInfo['isbn'] = dictjson['010'][start:end]
+            BookInfo['isbn'] = dictjson['010'][start:end].strip('-')
     else:
         BookInfo['isbn'] = None
 
     # pages
     if '215' in dictjson:
         if 'a' in dictjson['215']:
+            dictjson['215'] = dictjson['215'].strip('cm')
             start = dictjson['215'].index('a') + 1
             if 'c' in dictjson['215']:
                 end = dictjson['215'].index('c')
@@ -124,6 +127,9 @@ def ParseJsonCNMARC(dictjson):
             else:
                 end = -1
             BookInfo['authors'].append(dictjson['702'][start:end])
+    # if len(BookInfo['authors']) == 0:
+    #     print dictjson
+    #     exit(2)
 
     # tags[]
     # BookInfo['tags'] = []
@@ -135,6 +141,6 @@ def ParseJsonCNMARC(dictjson):
         dictjson['606'] = dictjson['606'].replace('y', '#')
         dictjson['606'] = dictjson['606'].replace('z', '#')
         dictjson['606'] = dictjson['606'].replace('j', '#')
-        BookInfo['tags'] = dictjson['606'].split('#')
+        BookInfo['tags'] = dictjson['606'].split('#')[1:]
 
     return BookInfo

@@ -23,9 +23,10 @@ db = client['cnmarc']
 collection = db['cnmarc']
 
 for jsonfile in glob.glob(JSON_DIR + "/*.json"):
-    # print jsonfile
+    print jsonfile
     f = open(jsonfile, 'r')
     recs = json.loads(f.read())
     for rec in recs:
         print rec
-        ParseJsonCNMARC(rec)
+        BookInfo = ParseJsonCNMARC(rec)
+        print collection.insert_one(BookInfo).inserted_id, BookInfo['authors']
