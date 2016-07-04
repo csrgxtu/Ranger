@@ -265,8 +265,8 @@ def ParseJsonCNMARC(dictjson):
             else:
                 end = -1
             BookInfo['authors'].append(dictjson['701'][start:end])
-        else:
-            BookInfo['authors'] = None
+        # else:
+        #     BookInfo['authors'] = None
 
 
     if '702' in dictjson:
