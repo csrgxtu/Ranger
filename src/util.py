@@ -107,12 +107,19 @@ def ParseJsonCNMARC(dictjson):
     if '701' in dictjson:
         if 'a' in dictjson['701']:
             start = dictjson['701'].index('a') + 1
-            end = dictjson['701'].index('9')
+            if '9' in dictjson['701']:
+                end = dictjson['701'].index('9')
+            else:
+                end = -1
             BookInfo['authors'].append(dictjson['701'][start:end])
 
     if '702' in dictjson:
         if 'a' in dictjson['702']:
             start = dictjson['702'].index('a') + 1
+            if '9' in dictjson['702']:
+                end = dictjson['702'].index('9')
+            else:
+                end = -1
             end = dictjson['702'].index('9')
             BookInfo['authors'].append(dictjson['702'][start:end])
 
