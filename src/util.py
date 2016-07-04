@@ -120,7 +120,6 @@ def ParseJsonCNMARC(dictjson):
                 end = dictjson['702'].index('9')
             else:
                 end = -1
-            end = dictjson['702'].index('9')
             BookInfo['authors'].append(dictjson['702'][start:end])
 
     # tags[]
