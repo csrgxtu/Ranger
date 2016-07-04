@@ -12,6 +12,89 @@ def ReadFile(filename):
 def ParseJsonCNMARC(dictjson):
     BookInfo = {}
 
+    # rganization_name
+    if '801' in dictjson:
+        if 'b' in dictjson['801']:
+            start = dictjson['801'].index('b') + 1
+            if 'c' in dictjson['801']:
+                end = dictjson['801'].index('c')
+            else:
+                end = -1
+            BookInfo['rganization_name'] = dictjson['801'][start:end]
+        else:
+            BookInfo['rganization_name'] = None
+    else:
+        BookInfo['rganization_name'] = None
+
+    # country_code
+    # if '801' in dictjson:
+    #     if 'a' in dictjson['801']:
+    #         start = dictjson['801'].index('a') + 1
+    #         end = start + 2
+    #         BookInfo['country_code'] = dictjson['801'][start:end]
+    # else:
+    #     BookInfo['country_code'] = None
+
+    if '102' in dictjson:
+        if 'a' in dictjson['102']:
+            start = dictjson['102'].index('a') + 1
+            if 'b' in dictjson['102']:
+                end = dictjson['102'].index('b')
+            else:
+                end = len(dictjson['102'])
+            BookInfo['country_code'] = dictjson['102'][start:end]
+        else:
+            BookInfo['country_code'] = None
+    else:
+        BookInfo['country_code'] = None
+
+    # book_responsible
+    if '701' in dictjson:
+        if '4' in dictjson['701']:
+            start = dictjson['701'].index('4') + 1
+            end = -1
+            BookInfo['book_responsible'] = dictjson['701'][start:end]
+        else:
+            BookInfo['book_responsible'] = None
+    else:
+        BookInfo['book_responsible'] = None
+
+    # primary_responsible
+    if '200' in dictjson:
+        if 'f' in dictjson['200']:
+            start = dictjson['200'].index('f') + 1
+            if 'g' in dictjson['200']:
+                end = dictjson['200'].index('g')
+            else:
+                end = len(dictjson['200'])
+            BookInfo['primary_responsible'] = dictjson['200'][start:end]
+        else:
+            BookInfo['primary_responsible'] = None
+    else:
+        BookInfo['primary_responsible'] = None
+
+    # other_responsible
+    if '200' in dictjson:
+        if 'g' in dictjson['200']:
+            start = dictjson['200'].index('g') + 1
+            BookInfo['other_responsible'] = dictjson['200'][start:]
+        else:
+            BookInfo['other_responsible'] = None
+    else:
+        BookInfo['other_responsible'] = None
+
+
+    # clc_sort_num
+    if '690' in dictjson:
+        if 'a' in dictjson['690']:
+            start = dictjson['690'].index('a') + 1
+            # end = dictjson['690'].index('v5')
+            BookInfo['clc_sort_num'] = dictjson['690'][start:]
+        else:
+            BookInfo['clc_sort_num'] = None
+    else:
+        BookInfo['clc_sort_num'] = None
+
     # publisher_name
     if '210' in dictjson:
         if 'c' in dictjson['210']:
@@ -21,6 +104,8 @@ def ParseJsonCNMARC(dictjson):
             else:
                 end = -1
             BookInfo['publisher_name'] = dictjson['210'][start:end]
+        else:
+            BookInfo['publisher_name'] = None
     else:
         BookInfo['publisher_name'] = None
 
@@ -33,6 +118,8 @@ def ParseJsonCNMARC(dictjson):
             else:
                 end = -1
             BookInfo['publish_place'] = dictjson['210'][start:end]
+        else:
+            BookInfo['publish_place'] = None
     else:
         BookInfo['publish_place'] = None
 
@@ -41,6 +128,8 @@ def ParseJsonCNMARC(dictjson):
         if 'd' in dictjson['210']:
             start = dictjson['210'].index('d') + 1
             BookInfo['publisher_date'] = dictjson['210'][start:]
+        else:
+            BookInfo['publisher_date'] = None
     else:
         BookInfo['publisher_date'] = None
 
@@ -53,6 +142,8 @@ def ParseJsonCNMARC(dictjson):
                 BookInfo['binding'] = dictjson['010'][start:end]
             else:
                 BookInfo['binding'] = dictjson['010'][start:]
+        else:
+            BookInfo['binding'] = None
     else:
         BookInfo['binding'] = None
 
@@ -62,6 +153,8 @@ def ParseJsonCNMARC(dictjson):
             start = dictjson['200'].index('b') + 1
             end = start + 2
             BookInfo['length_style'] = dictjson['200'][start:end]
+        else:
+            BookInfo['length_style'] = None
     else:
         BookInfo['length_style'] = None
 
@@ -70,6 +163,8 @@ def ParseJsonCNMARC(dictjson):
         if 'd' in dictjson['010']:
             start = dictjson['010'].index('d') + 1
             BookInfo['price'] = dictjson['010'][start:]
+        else:
+            BookInfo['price'] = None
     else:
         BookInfo['price'] = None
 
@@ -95,6 +190,8 @@ def ParseJsonCNMARC(dictjson):
             else:
                 end = -1
             BookInfo['isbn'] = dictjson['010'][start:end].strip('-')
+        else:
+            BookInfo['isbn'] = None
     else:
         BookInfo['isbn'] = None
 
@@ -107,6 +204,8 @@ def ParseJsonCNMARC(dictjson):
             else:
                 end = -1
             BookInfo['size'] = dictjson['215'][start:end]
+        else:
+            BookInfo['size'] = None
     else:
         BookInfo['size'] = None
 
@@ -124,6 +223,8 @@ def ParseJsonCNMARC(dictjson):
             else:
                 end = -1
             BookInfo['pagesize'] = dictjson['215'][start:end]
+        else:
+            BookInfo['pagesize'] = None
     else:
         BookInfo['pagesize'] = None
 
@@ -136,6 +237,8 @@ def ParseJsonCNMARC(dictjson):
             # end = dictjson['100'].index('d')
             end = start + 8
             BookInfo['print_date'] = dictjson['100'][start:end]
+        else:
+            BookInfo['print_date'] = None
     else:
         BookInfo['print_date'] = None
 
@@ -145,6 +248,8 @@ def ParseJsonCNMARC(dictjson):
             start = dictjson['200'].index('a') + 1
             end = dictjson['200'].index('b')
             BookInfo['title'] = dictjson['200'][start:end]
+        else:
+            BookInfo['title'] = None
     else:
         BookInfo['title'] = None
 
@@ -160,6 +265,9 @@ def ParseJsonCNMARC(dictjson):
             else:
                 end = -1
             BookInfo['authors'].append(dictjson['701'][start:end])
+        else:
+            BookInfo['authors'] = None
+
 
     if '702' in dictjson:
         if 'a' in dictjson['702']:
@@ -172,6 +280,10 @@ def ParseJsonCNMARC(dictjson):
     # if len(BookInfo['authors']) == 0:
     #     print dictjson
     #     exit(2)
+    if BookInfo['authors']:
+        print BookInfo['primary_responsible']
+        author = BookInfo['primary_responsible']
+        BookInfo['authors'].append(author)
 
     # tags[]
     # BookInfo['tags'] = []
@@ -184,5 +296,65 @@ def ParseJsonCNMARC(dictjson):
         dictjson['606'] = dictjson['606'].replace('z', '#')
         dictjson['606'] = dictjson['606'].replace('j', '#')
         BookInfo['tags'] = dictjson['606'].split('#')[1:]
+
+    # year_sub
+    if '606' in dictjson:
+        if 'z' in dictjson['606']:
+            start = dictjson['606'].index('z') + 1
+            BookInfo['year_sub'] = dictjson['606'][start:]
+    else:
+        BookInfo['year_sub'] = None
+
+    # area_sub
+    if '606' in dictjson:
+        if 'y' in dictjson['606']:
+            start = dictjson['606'].index('y') + 1
+            if 'z' in dictjson['606']:
+                end = dictjson['606'].index('z')
+            else:
+                end = -1
+            BookInfo['year_sub'] = dictjson['606'][start:end]
+    else:
+        BookInfo['area_sub'] = None
+
+    # yopic_sub
+    if '606' in dictjson:
+        if 'x' in dictjson['606']:
+            start = dictjson['606'].index('x') + 1
+            if 'y' in dictjson['606']:
+                end = dictjson['606'].index('y')
+            else:
+                end = -1
+            BookInfo['yopic_sub'] = dictjson['606'][start:end]
+    else:
+        BookInfo['yopic_sub'] = None
+
+    # main_heading
+    if '606' in dictjson:
+        if 'a' in dictjson['606']:
+            start = dictjson['606'].index('a') + 1
+            if 'x' in dictjson['606']:
+                end = dictjson['606'].index('x')
+            elif 'y' in dictjson['606']:
+                end = dictjson['606'].index('y')
+            else:
+                end = -1
+            BookInfo['main_heading'] = dictjson['606'][start:end]
+    else:
+        BookInfo['main_heading'] = None
+
+    # n_series_title
+    if '225' in dictjson:
+        if 'a' in dictjson['225']:
+            start = dictjson['225'].index('a') + 1
+            if 'i' in dictjson['225']:
+                end = dictjson['225'].index('i')
+            elif 'f' in dictjson['225']:
+                end = dictjson['225'].index('f')
+            else:
+                end = -1
+            BookInfo['n_series_title'] = dictjson['225'][start:end]
+    else:
+        BookInfo['n_series_title'] = None
 
     return BookInfo
