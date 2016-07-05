@@ -18,9 +18,9 @@ if len(sys.argv) != 2:
 JSON_DIR = sys.argv[1]
 
 # second, loop the json file in JSON_DIR
-client = MongoClient('mongodb://127.0.0.1:27017/')
+client = MongoClient('mongodb://192.168.100.2:27017/')
 db = client['cnmarc']
-collection = db['cnmarc']
+collection = db['cnmarc1']
 
 for jsonfile in glob.glob(JSON_DIR + "/*.json"):
     print jsonfile
