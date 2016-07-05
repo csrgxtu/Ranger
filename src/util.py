@@ -317,7 +317,12 @@ def ParseJsonCNMARC(dictjson):
                 end = dictjson['606'].index('y')
             else:
                 end = len(dictjson['606'])
-            BookInfo['main_heading'] = dictjson['606'][start:end]
+            main_heading = dictjson['606'][start:end]
+            if 'y' in main_heading:
+                end = main_heading.index('y')
+            else:
+                end = len(main_heading)
+            BookInfo['main_heading'] = dictjson['606'][0:end]
         else:
             BookInfo['main_heading'] = None
     else:
