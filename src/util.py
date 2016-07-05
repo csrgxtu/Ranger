@@ -307,6 +307,22 @@ def ParseJsonCNMARC(dictjson):
         author = BookInfo['primary_responsible']
         BookInfo['authors'].append(author)
 
+    # main_heading
+    if '606' in dictjson:
+        if 'a' in dictjson['606']:
+            start = dictjson['606'].index('a') + 1
+            if 'x' in dictjson['606']:
+                end = dictjson['606'].index('x')
+            elif 'y' in dictjson['606']:
+                end = dictjson['606'].index('y')
+            else:
+                end = len(dictjson['606'])
+            BookInfo['main_heading'] = dictjson['606'][start:end]
+        else:
+            BookInfo['main_heading'] = None
+    else:
+        BookInfo['main_heading'] = None
+
     # tags[]
     # BookInfo['tags'] = []
     if '606' in dictjson:
@@ -351,19 +367,7 @@ def ParseJsonCNMARC(dictjson):
     else:
         BookInfo['yopic_sub'] = None
 
-    # main_heading
-    if '606' in dictjson:
-        if 'a' in dictjson['606']:
-            start = dictjson['606'].index('a') + 1
-            if 'x' in dictjson['606']:
-                end = dictjson['606'].index('x')
-            elif 'y' in dictjson['606']:
-                end = dictjson['606'].index('y')
-            else:
-                end = -1
-            BookInfo['main_heading'] = dictjson['606'][start:end]
-    else:
-        BookInfo['main_heading'] = None
+
 
     # n_series_title
     if '225' in dictjson:
