@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # coding=utf-8
+import time
+import datetime
 
 # 读取文件到一个变量
 # 接受文件路径，返回string文本
@@ -77,7 +79,7 @@ def ParseJsonCNMARC(dictjson):
         BookInfo['primary_responsible'] = None
 
     # other_responsible
-    print dictjson['200']
+    # print dictjson['200']
     if '200' in dictjson:
         if 'f' in dictjson['200']:
             if 'g' in dictjson['200']:
@@ -315,6 +317,10 @@ def ParseJsonCNMARC(dictjson):
                 end = dictjson['606'].index('x')
             elif 'y' in dictjson['606']:
                 end = dictjson['606'].index('y')
+            elif 'j' in dictjson['606']:
+                end = dictjson['606'].index('j')
+            elif 'z' in dictjson['606']:
+                end = dictjson['606'].index('z')
             else:
                 end = len(dictjson['606'])
             main_heading = dictjson['606'][start:end]
@@ -322,11 +328,14 @@ def ParseJsonCNMARC(dictjson):
                 end = main_heading.index('y')
             else:
                 end = len(main_heading)
-            BookInfo['main_heading'] = dictjson['606'][0:end]
+            BookInfo['main_heading'] = main_heading[0:end]
         else:
             BookInfo['main_heading'] = None
     else:
         BookInfo['main_heading'] = None
+    # print BookInfo['main_heading']
+    # exit(3)
+    # time.sleep(1)
 
     # tags[]
     # BookInfo['tags'] = []
@@ -387,5 +396,18 @@ def ParseJsonCNMARC(dictjson):
             BookInfo['n_series_title'] = dictjson['225'][start:end]
     else:
         BookInfo['n_series_title'] = None
+
+    # updatetime
+    BookInfo['updatetime'] = datetime.datetime.utcnow()
+    # createtime
+    BookInfo['createtime'] = BookInfo['updatetime']
+    # updateuserid
+    BookInfo['updateuserid'] = 'admin'
+    # createuserid
+    BookInfo['createuserid'] = 'admin'
+    # version
+    BookInfo['version'] = float(round(time.time() * 1000))
+    # __v
+    BookInfo['__v'] = 0
 
     return BookInfo

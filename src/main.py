@@ -18,7 +18,7 @@ if len(sys.argv) != 2:
 JSON_DIR = sys.argv[1]
 
 # second, loop the json file in JSON_DIR
-client = MongoClient('mongodb://192.168.100.2:27017/')
+client = MongoClient('mongodb://127.0.0.1:27017/')
 db = client['cnmarc']
 collection = db['cnmarc2']
 
@@ -29,4 +29,4 @@ for jsonfile in glob.glob(JSON_DIR + "/*.json"):
     for rec in recs:
         print rec
         BookInfo = ParseJsonCNMARC(rec)
-        print collection.insert_one(BookInfo).inserted_id, BookInfo['authors']
+        print collection.insert_one(BookInfo).inserted_id, BookInfo['main_heading']
